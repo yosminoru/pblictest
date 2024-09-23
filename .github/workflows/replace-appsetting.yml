@@ -47,13 +47,13 @@ jobs:
           
       #gradlewに権限追加
       - name: Grant execute permission for gradlew
-        working-directory: comlib
+        working-directory: pblictest
         run: chmod +x gradlew
 
       # ここで設定ファイルを書き換える
       
       # build
       - name: Build with Gradle
-        working-directory: ./comlib
+        working-directory: ./pblictest
         run: ./gradlew build
   
