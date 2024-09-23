@@ -50,8 +50,26 @@ jobs:
         working-directory: publicbatchapp
         run: chmod +x gradlew
 
+      #appsettings.ymlの更新前中身表示
+      - name: before-appsettings.yml
+        run: |
+          cat publicbatchapp/src/main/resources/appsettings.yml
+          
       # ここで設定ファイルを書き換える
-      
+      - name: replace appsettings.yml
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: 'publicbatchapp/src/main/resources/appsettings.yml'
+        env:
+          spring.datasource.url: 'autorepurl'
+          #VAR2: 'value2'
+          #SECRET: ${{ secrets.MY_SECRET }}
+
+      #appsettings.ymlの更新後中身表示
+      - name: after-appsettings.yml
+        run: |
+          cat publicbatchapp/src/main/resources/appsettings.yml
+          
       # build
       - name: Build with Gradle
         working-directory: ./publicbatchapp
