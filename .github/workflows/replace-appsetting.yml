@@ -1,0 +1,59 @@
+name: replace-appsetting
+
+#on:
+#  release:
+#    types: [created]
+
+on:
+ workflow_dispatch:
+#   inputs:
+#     version:
+#       required: true
+#       description: バージョン
+#       default: v1.0.0
+       
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      #カレントディレクトリ表示（検証用）
+      - name: Current-dir-disp
+        run: |
+          pwd
+
+      #カレントディレクトリの中のファイル、フォルダを表示（検証用）
+      - name: Current-dir-sub-disp1
+        run: |
+          ls
+
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          
+      - name: Setup Gradle
+        #uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+      #カレントディレクトリの中のファイル、フォルダを表示（検証用）
+      - name: Current-dir-sub-disp2
+        run: |
+          ls
+          
+      #gradlewに権限追加
+      - name: Grant execute permission for gradlew
+        working-directory: comlib
+        run: chmod +x gradlew
+
+      # ここで設定ファイルを書き換える
+      
+      # build
+      - name: Build with Gradle
+        working-directory: ./comlib
+        run: ./gradlew build
+  
