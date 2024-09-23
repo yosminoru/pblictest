@@ -61,7 +61,7 @@ jobs:
         with:
           files: 'publicbatchapp/src/main/resources/appsettings.yml'
         env:
-          spring.datasource.url: 'autorepurl'
+          spring.datasource.url: "ReplaceUrl"
           #VAR2: 'value2'
           #SECRET: ${{ secrets.MY_SECRET }}
 
