@@ -47,13 +47,13 @@ jobs:
           
       #gradlewに権限追加
       - name: Grant execute permission for gradlew
-        working-directory: pblictest
+        working-directory: publicbatchapp
         run: chmod +x gradlew
 
       # ここで設定ファイルを書き換える
       
       # build
       - name: Build with Gradle
-        working-directory: ./pblictest
+        working-directory: ./publicbatchapp
         run: ./gradlew build
   
