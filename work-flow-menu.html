@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub Actions Trigger</title>
+</head>
+<body>
+    <h1>GitHub Actions Trigger</h1>
+    <form id="trigger-form">
+        <label for="input1">Input 1:</label>
+        <input type="text" id="input1" name="input1"><br><br>
+        <label for="input2">Input 2:</label>
+        <input type="text" id="input2" name="input2"><br><br>
+        <label for="input3">Input 3:</label>
+        <input type="text" id="input3" name="input3"><br><br>
+        <button type="button" onclick="triggerAction()">Trigger Action</button>
+    </form>
 
+    <script>
+        async function triggerAction() {
+            const input1 = document.getElementById('input1').value;
+            const input2 = document.getElementById('input2').value;
+            const input3 = document.getElementById('input3').value;
+
+            const response = await fetch('https://api.github.com/repos/yosminoru/pblictest/dispatches', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': 'Bearer ' + process.env.GITHUB_TOKEN
+                },
+                body: JSON.stringify({
+                    event_type: 'repository_dispatch',
+                    client_payload: {
+                        input1: input1,
+                        input2: input2,
+                        input3: input3
+                    }
+                })
+            });
+
+            if (response.ok) {
+                alert('Action triggered successfully!');
+            } else {
+                alert('Failed to trigger action.');
+            }
+        }
+    </script>
+</body>
+</html>
