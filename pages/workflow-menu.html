@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Actions Trigger</title>
+    <title>GitHub Actions 起動</title>
 </head>
 <body>
-    <h1>GitHub Actions Trigger</h1>
-    <form id="trigger-form">
-        <label for="input1">Input 1:</label>
+    <h1>GitHub Actions 起動</h1>
+    <form id="actionForm">
+        <label for="input1">入力1:</label>
         <input type="text" id="input1" name="input1"><br><br>
-        <label for="input2">Input 2:</label>
+        <label for="input2">入力2:</label>
         <input type="text" id="input2" name="input2"><br><br>
-        <label for="input3">Input 3:</label>
+        <label for="input3">入力3:</label>
         <input type="text" id="input3" name="input3"><br><br>
-        <button type="button" onclick="triggerAction()">Trigger GitHub Action</button>
+        <button type="button" onclick="triggerAction()">起動</button>
     </form>
 
     <script>
@@ -23,15 +23,15 @@
             const input2 = document.getElementById('input2').value;
             const input3 = document.getElementById('input3').value;
 
-            const response = await fetch('https://api.github.com/repos/yosminoru/pblictest/dispatches', {
+            const response = await fetch('https://api.github.com/repos/ユーザー名/リポジトリ名/actions/workflows/ワークフローID/dispatches', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/vnd.github.v3+json',
-                    'Authorization': `token ${process.env.PAT_TOKEN}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    event_type: 'trigger_action',
-                    client_payload: {
+                    ref: 'main',
+                    inputs: {
                         input1: input1,
                         input2: input2,
                         input3: input3
@@ -40,9 +40,9 @@
             });
 
             if (response.ok) {
-                alert('GitHub Action triggered successfully!');
+                alert('GitHub Actionsが起動されました');
             } else {
-                alert('Failed to trigger GitHub Action.');
+                alert('エラーが発生しました');
             }
         }
     </script>
