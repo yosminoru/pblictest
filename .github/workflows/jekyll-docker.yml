@@ -1,0 +1,16 @@
+name: Repository Dispatch Trigger
+
+on:
+  repository_dispatch:
+    types: [repository_dispatch]
+
+jobs:
+  run-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run script
+        run: echo "Inputs received:${{ github.event.client_payload.input1 }}, ${{ github.event.client_payload.input2 }}, ${{ github.event.client_payload.input3 }}"
+
