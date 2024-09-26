@@ -1,0 +1,26 @@
+name: Dispatch Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      input1:
+        description: 'First input'
+        required: true
+        default: ''
+      input2:
+        description: 'Second input'
+        required: true
+        default: ''
+      input3:
+        description: 'Third input'
+        required: true
+        default: ''
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run a script
+        run: echo "Input1:${{ github.event.inputs.input1 }},Input2:${{ github.event.inputs.input2 }},Input3:${{ github.event.inputs.input3 }}"
