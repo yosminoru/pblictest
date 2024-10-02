@@ -5,15 +5,15 @@ on:
     inputs:
       input1:
         description: 'First input'
-        required: true
+        required: false
         default: ''
       input2:
         description: 'Second input'
-        required: true
+        required: false
         default: ''
       input3:
         description: 'Third input'
-        required: true
+        required: false
         default: ''
 
 jobs:
